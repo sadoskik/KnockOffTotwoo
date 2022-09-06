@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,13 +48,15 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 // Write a message to the database
                 // Create a new user with a first and last name
+                Long datetime = System.currentTimeMillis();
+                Timestamp timestamp = new Timestamp(datetime);
+                System.out.println("Current Time Stamp: "+timestamp);
                 Map<String, Object> user = new HashMap<>();
-                user.put("first", "Ada");
-                user.put("last", "Lovelace");
-                user.put("born", 1815);
+                user.put("user", SaveID.ID);
+                user.put("time", timestamp);
 
 // Add a new document with a generated ID
-                db.collection("users")
+                db.collection("pings")
                         .add(user)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
